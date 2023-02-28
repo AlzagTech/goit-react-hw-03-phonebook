@@ -6,16 +6,38 @@ import { Filter } from './Filter/Filter';
 import { GlobalStyle } from './GlobalStyle';
 import { Container } from './Container/Container';
 
+const initialContacts = [
+  { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+  { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+  { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+  { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+];
+
+const CONTACTS_KEY = 'contacts';
+
 export class App extends Component {
   state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
+    contacts: [...initialContacts],
     filter: '',
   };
+
+  componentDidMount() {
+    const savedContacts = localStorage.getItem(CONTACTS_KEY);
+
+    if (savedContacts !== null) {
+      const parsedContacts = JSON.parse(savedContacts);
+      this.setState({ contacts: parsedContacts });
+      return;
+    }
+
+    this.setState({ contacts: initialContacts });
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.contacts !== this.state.contacts) {
+      localStorage.setItem(CONTACTS_KEY, JSON.stringify(this.state.contacts));
+    }
+  }
 
   addContact = ({ name, number }) => {
     const contact = {
@@ -64,7 +86,7 @@ export class App extends Component {
     const visibleContacts = this.getVisibleContacts();
     const visibleContactsLength = visibleContacts.length;
     const contactsLength = this.state.contacts.length;
-    // No results in your contacts
+
     return (
       <>
         <GlobalStyle />
