@@ -1,6 +1,6 @@
 import { Formik } from 'formik';
-// import * as Yup from 'yup';
 import PropTypes from 'prop-types';
+
 import {
   Form,
   FormInput,
@@ -8,26 +8,6 @@ import {
   FormLabel,
   FormErrorMessage,
 } from './ContactForm.styles';
-
-// const ContactSchema = Yup.object().shape({
-//   name: Yup.string()
-//     .matches(/^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$/, {
-//       message:
-//         "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan",
-//       excludeEmptyString: false,
-//     })
-//     .required('Please fill out this field.'),
-//   number: Yup.string()
-//     .matches(
-//       /\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}/,
-//       {
-//         message:
-//           'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +',
-//         excludeEmptyString: false,
-//       }
-//     )
-//     .required('Please fill out this field.'),
-// });
 
 export const ContactForm = ({ onSubmit }) => {
   return (
@@ -40,7 +20,6 @@ export const ContactForm = ({ onSubmit }) => {
         onSubmit(values);
         actions.resetForm();
       }}
-      // validationSchema={ContactSchema}
     >
       <Form>
         <label htmlFor="name">

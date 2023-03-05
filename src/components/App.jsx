@@ -58,9 +58,11 @@ export class App extends Component {
   };
 
   formSubmitHandle = data => {
-    const savedContactsNames = this.state.contacts.map(contact => contact.name);
+    const isContactRepeat = this.state.contacts.find(
+      contact => contact.name === data.name
+    );
 
-    if (savedContactsNames.includes(data.name)) {
+    if (isContactRepeat) {
       alert(`${data.name} is alredy in contacts`);
       return;
     }
